@@ -1,0 +1,168 @@
+{
+  "name": "sticky-notes-reminders",
+  "displayName": "Sticky Notes & Reminders",
+  "description": "Pin sticky notes to your code lines and set reminders directly in VS Code",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./src/extension.js",
+  "icon": "media/icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "stickyNotes.addNote",
+        "title": "📌 Add Sticky Note",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.editNote",
+        "title": "✏️ Edit Sticky Note",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.deleteNote",
+        "title": "🗑️ Delete Sticky Note",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.setReminder",
+        "title": "⏰ Set Reminder",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.showAllNotes",
+        "title": "📋 Show All Notes",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.clearAllNotes",
+        "title": "🧹 Clear All Notes",
+        "category": "Sticky Notes"
+      },
+      {
+        "command": "stickyNotes.refreshNotes",
+        "title": "$(refresh) Refresh",
+        "category": "Sticky Notes"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "stickyNotes.addNote",
+          "group": "stickyNotes@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "stickyNotes.editNote",
+          "group": "stickyNotes@2",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "stickyNotes.deleteNote",
+          "group": "stickyNotes@3",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "stickyNotes.setReminder",
+          "group": "stickyNotes@4",
+          "when": "editorTextFocus"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "stickyNotes.addNote",
+          "when": "view == stickyNotesPanel",
+          "group": "navigation@1"
+        },
+        {
+          "command": "stickyNotes.refreshNotes",
+          "when": "view == stickyNotesPanel",
+          "group": "navigation@2"
+        },
+        {
+          "command": "stickyNotes.clearAllNotes",
+          "when": "view == stickyNotesPanel",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "stickyNotes.editNote",
+          "when": "view == stickyNotesPanel && viewItem == note",
+          "group": "inline@1"
+        },
+        {
+          "command": "stickyNotes.setReminder",
+          "when": "view == stickyNotesPanel && viewItem == note",
+          "group": "inline@2"
+        },
+        {
+          "command": "stickyNotes.deleteNote",
+          "when": "view == stickyNotesPanel && viewItem == note",
+          "group": "inline@3"
+        }
+      ]
+    },
+    "views": {
+      "stickyNotesContainer": [
+        {
+          "id": "stickyNotesPanel",
+          "name": "Sticky Notes",
+          "icon": "$(pin)"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "stickyNotesContainer",
+          "title": "Sticky Notes",
+          "icon": "$(pin)"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "stickyNotes.addNote",
+        "key": "ctrl+shift+n",
+        "mac": "cmd+shift+n",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "stickyNotes.showAllNotes",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m"
+      }
+    ],
+    "configuration": {
+      "title": "Sticky Notes & Reminders",
+      "properties": {
+        "stickyNotes.noteColor": {
+          "type": "string",
+          "default": "#FFD700",
+          "description": "Color for sticky note gutter decorations"
+        },
+        "stickyNotes.reminderColor": {
+          "type": "string",
+          "default": "#FF6B6B",
+          "description": "Color for reminder gutter decorations"
+        },
+        "stickyNotes.showInlineText": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show note preview text inline in the editor"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo 'Ready'"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0"
+  }
+}
